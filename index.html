@@ -120,36 +120,30 @@
     <h1 class="dynamic-title">Welcome to Khang chuyển giới Website</h1>
 
     <div class="container">
-        <div class="box" data-info="Trần" data-new-text="Trần">Trần</div>
-        <div class="box" data-info="" data-new-text="Thị"></div>
-        <div class="box" data-info="Hưng" data-new-text="Hương">Hưng</div>
-        <div class="box" data-info="Khang" data-new-text="Trang">Khang</div>
+        <div class="box" data-info="Trần" data-text-options="Trần">Trần</div>
+        <div class="box" data-info="" data-text-options=" ,Thị,Thu"></div>
+        <div class="box" data-info="Hưng" data-text-options="Hưng,Hương,Phương">Hưng</div>
+        <div class="box" data-info="Khang" data-text-options="Khang,Trang,Giang,An">Khang</div>
     </div>
+    
     
     <script>
         document.querySelectorAll('.box').forEach((box) => {
-            box.addEventListener('click', () => {
-                box.classList.add('explode');
-                setTimeout(() => {
-                    box.classList.remove('explode');
-                }, 500); // Matches the animation duration in CSS
-            });
+        const textOptions = box.getAttribute('data-text-options').split(','); // Get all text options
+        let currentIndex = 0; // Track the current text index
+
+        box.addEventListener('click', () => {
+            // Add the animation
+            box.classList.add('explode');
+            setTimeout(() => {
+                box.classList.remove('explode');
+            }, 500); // Matches the animation duration in CSS
+
+            // Cycle through text options
+            currentIndex = (currentIndex + 1) % textOptions.length; // Increment index and loop back
+            box.textContent = textOptions[currentIndex];
         });
-        document.querySelectorAll('.box').forEach((box) => {
-            const originalText = box.textContent; // Save the original text
-            const newText = box.getAttribute('data-new-text'); // Get the new text from the attribute
-
-            box.addEventListener('click', () => {
-                // Toggle between the original and new text
-                if (box.textContent === originalText) {
-                    box.textContent = newText;
-                } else {
-                    box.textContent = originalText;
-                }
-            });
-        });
-
-
+    });
     </script>
 </body>
 </html>
